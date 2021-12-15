@@ -34,23 +34,19 @@ class Servers extends Component {
             const response = await fetch(`http://${server.ip}:5555/`, { signal: controller.signal }, requestParams);
             const json = await response.json();
             
-            let servers = this.state.servers;
-
-            servers[name].is_online = true;
-            servers[name].info = json;
-
-            this.setState({ servers: servers });
-
+            server.is_online = true;
+            server.info = json;
         } catch (error) {
-            let servers = this.state.servers;
+            server.is_online = false;
+            server.info = null;
+        } finally {
+            this.setState(previousState => ({
+                ...previousState,
+                [name]: server
+            }));
 
-            servers[name].is_online = false;
-            servers[name].info = null;
-
-            this.setState({ servers: servers });
-        }
-
-        clearInterval(timeoutId);
+            clearInterval(timeoutId);
+        }   
     }
 
     readServersInfo() {
