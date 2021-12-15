@@ -13,8 +13,6 @@ import PingButton from './PingButtonComponent';
 import ShellButton from './ShellButtonComponent';
 
 import { styled } from '@mui/material/styles';
-import ServerDescription from '../misc/ServerDescription';
-
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -26,10 +24,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 class Server extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     sendPost(command) {
         fetch(`http://${this.props.server.ip}:5555/${command}`, {
             method: 'POST',
