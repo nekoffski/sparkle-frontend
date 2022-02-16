@@ -48,6 +48,8 @@ const  a11yProps = (index) => {
     };
 }
   
+
+
 export default function Main() {
     const [value, setValue] = React.useState(0);
   
@@ -73,9 +75,8 @@ export default function Main() {
                 <Servers/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-            <Devices/>
+                <Devices/>
             </TabPanel>
-
             <Footer/>
         </Box>
     );
