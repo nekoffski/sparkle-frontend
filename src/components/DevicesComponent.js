@@ -10,6 +10,8 @@ import Checkbox from '@mui/material/Checkbox';
 
 import { styled } from '@mui/material/styles';
 
+import Button from '@mui/material/Button';
+
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -28,6 +30,7 @@ class Devices extends React.Component {
             ledsColor: undefined
         };
 
+        this.host = "192.168.1.43:5553";
         this.canUpdate = true;
     }
 
@@ -41,7 +44,7 @@ class Devices extends React.Component {
             mode: 'cors'
         };
 
-        const url = `http://192.168.1.43:5553/board/`;
+        const url = `http://${this.host}/board/`;
         
         fetch(url, requestParams).then(response=>response.json()).then(response => {
             console.log(response.boards);
@@ -50,6 +53,13 @@ class Devices extends React.Component {
                 boards: response.boards
             }));
         }).catch(err => console.log(err));
+    }
+
+    disableLedStrip(board_id, led_id) {
+        fetch(`http://${this.host}/board/${board_id}/led/${led_id}/disable`, {
+            method: 'POST',
+            mode: 'cors',
+        }).then(_ => {}).catch(err => console.log(err));
     }
 
     setLedStripColor(r, g, b, board, led_id) {
@@ -61,7 +71,7 @@ class Devices extends React.Component {
 
         console.log("Sending request!");
 
-        fetch(`http://192.168.1.43:5553/board/${board}/led/${led_id}/color`, {
+        fetch(`http://${this.host}/board/${board}/led/${led_id}/color`, {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -117,6 +127,9 @@ class Devices extends React.Component {
                             </h5>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <RgbaColorPicker color={color} onChange={onChange} />
+                            </div>
+                            <div style={{paddingTop: '2vh'}}>
+                                <Button onClick={() => { this.disableLedStrip(boardId, led.id); }} size="small" variant="outlined">Turn off</Button>
                             </div>
                         </Item>
                     </Grid>
