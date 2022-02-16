@@ -61,7 +61,7 @@ class Devices extends React.Component {
 
         console.log("Sending request!");
 
-        fetch(`http://192.168.1.29:5553/board/${board}/led/${led_id}/color`, {
+        fetch(`http://192.168.1.43:5553/board/${board}/led/${led_id}/color`, {
             method: 'POST',
             mode: 'cors',
             headers: {
