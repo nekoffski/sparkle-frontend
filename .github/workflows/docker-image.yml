@@ -15,4 +15,5 @@ jobs:
         docker login --username ${{ secrets.DOCKER_AUTH_LOGIN }} --password ${{ secrets.DOCKER_AUTH_TOKEN }}
         docker build --tag sparklesh/sparkle-frontend:latest \
         --output type=image,push=true --file ./misc/Dockerfile .
+	docker push sparklesh/sparkle-frontend:latest
 
