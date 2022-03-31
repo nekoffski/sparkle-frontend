@@ -1,5 +1,5 @@
 # pull official base image
-FROM arm32v7/node:12-alpine3.12
+FROM node:12-alpine3.12
 
 # set working directory
 WORKDIR /app
