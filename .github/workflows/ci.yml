@@ -20,6 +20,5 @@ jobs:
       if: github.ref_name == 'dev'
       run: docker push sparklesh/sparkle-frontend:latest
     - name: Deploy to VPS
-        if: github.ref_name == 'dev'
-        run: sudo apt-get install curl && ${{ secrets.SPARKLE_FRONTEND_DEPLOY_CMD }}
-
+      if: github.ref_name == 'dev'
+      run: sudo apt-get install curl && ${{ secrets.SPARKLE_FRONTEND_DEPLOY_CMD }}
