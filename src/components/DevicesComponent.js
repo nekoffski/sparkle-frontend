@@ -44,7 +44,7 @@ class Devices extends React.Component {
             mode: 'cors'
         };
 
-        const url = `http://${this.host}/board/`;
+        const url = `http://${this.host}/board`;
         
         fetch(url, requestParams).then(response=>response.json()).then(response => {
             console.log(response.boards);

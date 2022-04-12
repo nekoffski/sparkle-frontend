@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: CI
 
 on:
   push:
@@ -11,10 +11,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Create docker container 
+      if: github.ref_name == 'dev'
       run: |
         docker login --username ${{ secrets.DOCKER_AUTH_LOGIN }} --password ${{ secrets.DOCKER_AUTH_TOKEN }}
         docker build --tag sparklesh/sparkle-frontend:latest \
         --output type=image,push=true --file ./misc/Dockerfile .
     - name: Push container
+      if: github.ref_name == 'dev'
       run: docker push sparklesh/sparkle-frontend:latest
+    - name: Deploy to VPS
+        if: github.ref_name == 'dev'
+        run: sudo apt-get install curl && ${{ secrets.SPARKLE_FRONTEND_DEPLOY_CMD }}
 
